@@ -56,14 +56,6 @@ export default function Generate(): JSX.Element {
           </Heading>
         </Center>
         <Image src="/assets/img/vmix-logo-black.1660290307.png" alt="VMix Logo" />
-        {/* <Image src={"https://www.google.com/url?sa=i&url=https%3A%2F%2Fsiplahtelkom.com%2Fproduct%2Fmultimedia%2F3738442-vmix-software-comparison&psig=AOvVaw2A3Kn1Lr8JEaq5oETp8ybF&ust=1671586310288000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCKDKjLWGh_wCFQAAAAAdAAAAABAD"} alt={"VMix Logo"} /> */}
-        {/* <Center fontSize={{ base: "sm", sm: "md" }} color={useColorModeValue("gray.800", "gray.400")}>
-          We have sent code to your email
-        </Center>
-        <Center fontSize={{ base: "sm", sm: "md" }} fontWeight="bold" color={useColorModeValue("gray.800", "gray.400")}>
-          username@mail.com
-        </Center> */}
-
         <Stack spacing={3}>
           <Text id="statusText" textAlign={"center"}></Text>
           {ProgressBar ? <Progress size="sm" isIndeterminate /> : null}
@@ -116,7 +108,6 @@ export default function Generate(): JSX.Element {
     socket.on("connect", () => {
       console.log("Connected to server");
       updateStatusText("Connected to server");
-      // console.log(socket.id);
       setGenerateBtn(false);
       setProgressBar(true);
       updateStatusText("Authenticating");
@@ -138,21 +129,16 @@ export default function Generate(): JSX.Element {
     socket.on("disconnect", () => {
       setAuthStatus(0);
       updateStatusText("Disconnected from server");
-      // console.log("Disconnected from server");
     });
   }
   async function getLicense() {
-    // console.log(cookie.session);
     setProgressBar(true);
-    // console.log(socket);
     socket.emit("generate", response => {
-      // console.log(response);
       updateStatusText(response);
       setGenerateBtn(false);
     });
 
     socket.on("message", data => {
-      // console.log("Message received");
       if (!data.completed) {
         updateStatusText(data.message);
       } else {
@@ -167,11 +153,10 @@ export default function Generate(): JSX.Element {
     });
 
     socket.on("license", license => {
-      // console.log(license);
-      // updateStatusText(license);
       updateInfoText(`
       License: ${license.license}<br>
-      Expiration Date: ${license.data.expiry_date}
+      Expiration Date: ${license.data.expiry_date}<br>
+      Created At : ${license.data.created_at}<br>
       `);
       setProgressBar(false);
     });

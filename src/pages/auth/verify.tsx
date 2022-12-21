@@ -1,22 +1,20 @@
-import { calc, Center, Heading } from "@chakra-ui/react";
-import React from "react";
-import Router from "next/router";
+import { Button, Center, Flex, FormControl, Heading, HStack, PinInput, PinInputField, Spinner, Stack, useColorModeValue, useToast } from "@chakra-ui/react";
 import Head from "next/head";
-import { Button, FormControl, Flex, Input, Stack, useColorModeValue, HStack, Spinner, useToast } from "@chakra-ui/react";
-import { PinInput, PinInputField } from "@chakra-ui/react";
-import { DarkModeSwitch } from "../../components/DarkModeSwitch";
+import Router from "next/router";
+import React from "react";
 import { useCookies } from "react-cookie";
+import { DarkModeSwitch } from "../../components/DarkModeSwitch";
 
 export async function getServerSideProps(context) {
   const session = context.req.cookies.session;
   var redirect = context.query.redirect;
-  // console.log(redirect);
+
   if (redirect === undefined) {
     redirect = "/generate";
   } else {
     redirect = decodeURIComponent(redirect);
   }
-  // console.log(redirect);
+
   return {
     props: {
       redirect: redirect,
@@ -29,10 +27,9 @@ export default function TwoFactor(props): JSX.Element {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [cookie, setCookie] = useCookies(["session"]);
 
-  // console.log(props.redirect);
   var redirect = props.redirect;
   if (cookie.session !== undefined) Router.push(redirect, undefined, { shallow: true });
-  // console.log(Router.query);
+
   return (
     <Flex minH={"100vh"} align={"center"} justify={"center"} bg={useColorModeValue("gray.50", "gray.800")}>
       <Head>
@@ -45,12 +42,6 @@ export default function TwoFactor(props): JSX.Element {
           </Heading>
         </Center>
 
-        {/* <Center fontSize={{ base: "sm", sm: "md" }} color={useColorModeValue("gray.800", "gray.400")}>
-          We have sent code to your email
-        </Center>
-        <Center fontSize={{ base: "sm", sm: "md" }} fontWeight="bold" color={useColorModeValue("gray.800", "gray.400")}>
-          username@mail.com
-        </Center> */}
         <form onSubmit={formHandler} onChange={formChange}>
           <FormControl marginTop={4}>
             <Center>
