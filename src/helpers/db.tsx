@@ -65,6 +65,10 @@ export const checkSession = async sessionid => {
       })
       .toArray();
     if (documents.length === 0) return false;
+    if (documents[0].expiry < Date.now()) {
+      await collection.deleteOne({ sessionid: sessionid });
+      return false;
+    }
     return true;
   } catch (e) {
     throw new Error(e);

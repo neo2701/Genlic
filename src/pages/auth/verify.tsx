@@ -7,12 +7,32 @@ import { PinInput, PinInputField } from "@chakra-ui/react";
 import { DarkModeSwitch } from "../../components/DarkModeSwitch";
 import { useCookies } from "react-cookie";
 
-export default function TwoFactor(): JSX.Element {
+export async function getServerSideProps(context) {
+  const session = context.req.cookies.session;
+  var redirect = context.query.redirect;
+  // console.log(redirect);
+  if (redirect === undefined) {
+    redirect = "/generate";
+  } else {
+    redirect = decodeURIComponent(redirect);
+  }
+  // console.log(redirect);
+  return {
+    props: {
+      redirect: redirect,
+    },
+  };
+}
+
+export default function TwoFactor(props): JSX.Element {
   const toast = useToast();
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [cookie, setCookie] = useCookies(["session"]);
 
-  if (cookie.session !== undefined) Router.push("/generate", undefined, { shallow: true });
+  // console.log(props.redirect);
+  var redirect = props.redirect;
+  if (cookie.session !== undefined) Router.push(redirect, undefined, { shallow: true });
+  // console.log(Router.query);
   return (
     <Flex minH={"100vh"} align={"center"} justify={"center"} bg={useColorModeValue("gray.50", "gray.800")}>
       <Head>
@@ -98,7 +118,7 @@ export default function TwoFactor(): JSX.Element {
           });
           setTimeout(() => {
             setCookie("session", data.sessionid, { path: "/", maxAge: 600 });
-            Router.push("/generate", undefined, { shallow: true });
+            Router.push(redirect, undefined, { shallow: true });
           }, 2000);
         }
       });

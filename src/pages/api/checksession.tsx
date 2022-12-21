@@ -12,5 +12,15 @@ export default async function handler(req, res) {
     })
     .toArray();
 
-  res.status(200).json({ documents });
+  // return res.status(200).json({ documents });
+  if (documents.length === 0) {
+    return res.status(200).json({ session: false });
+  } else {
+    if (documents[0].expiry < Date.now()) {
+      await collection.deleteOne({ sessionid: req.query.sessionid });
+      return res.status(200).json({ session: false });
+    } else {
+      return res.status(200).json({ session: true });
+    }
+  }
 }

@@ -79,16 +79,18 @@ export default function Generate(): JSX.Element {
           >
             Generate
           </Button>
-          {/* <Button
+          <Button
             bg={"blue.400"}
             color={"white"}
             _hover={{
               bg: "blue.500",
             }}
-            onClick={ClearCookies}
+            onClick={() => {
+              Router.push("/", undefined, { shallow: true });
+            }}
           >
-            Clear
-          </Button> */}
+            Return
+          </Button>
         </Stack>
       </Stack>
     </Flex>
