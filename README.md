@@ -1,5 +1,5 @@
-# Example app with [chakra-ui](https://github.com/chakra-ui/chakra-ui) and TypeScript
-
+# Just an Useless APP
+<!-- 
 This example features how to use [chakra-ui](https://github.com/chakra-ui/chakra-ui) as the component library within a Next.js app with TypeScript.
 
 Next.js and chakra-ui have built-in TypeScript declarations, so we'll get autocompletion for their modules straight away.
@@ -36,4 +36,4 @@ Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&ut
 
 Chakra has supported Gradients and RTL in `v1.1`. To utilize RTL, [add RTL direction and swap](https://chakra-ui.com/docs/features/rtl-support).
 
-If you don't have multi-direction app, you should make `<Html lang="ar" dir="rtl">` inside `_document.ts`.
+If you don't have multi-direction app, you should make `<Html lang="ar" dir="rtl">` inside `_document.ts`. -->
