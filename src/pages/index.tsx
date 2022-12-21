@@ -1,38 +1,25 @@
-import {
-  Link as ChakraLink,
-  Text,
-  Code,
-  List,
-  ListIcon,
-  ListItem,
-} from '@chakra-ui/react'
-import { CheckCircleIcon, LinkIcon } from '@chakra-ui/icons'
-
-import { Hero } from '../components/Hero'
-import { Container } from '../components/Container'
-import { Main } from '../components/Main'
-import { DarkModeSwitch } from '../components/DarkModeSwitch'
-import { CTA } from '../components/CTA'
-import { Footer } from '../components/Footer'
+import { Link as ChakraLink, Text, Code, List, ListIcon, ListItem, Stack } from "@chakra-ui/react";
+import { CheckCircleIcon, LinkIcon } from "@chakra-ui/icons";
+import Link from "next/link";
+import { Hero } from "../components/Hero";
+import { Container } from "../components/Container";
+import { Main } from "../components/Main";
+import { DarkModeSwitch } from "../components/DarkModeSwitch";
+import { CTA } from "../components/CTA";
+import { Footer } from "../components/Footer";
 
 const Index = () => (
   <Container height="100vh">
-    <Hero />
+    <Hero title="Nothing Here!" />
     <Main>
-      <Text color="text">
-        Example repository of <Code>Next.js</Code> + <Code>chakra-ui</Code> +{' '}
-        <Code>TypeScript</Code>.
-      </Text>
+      {/* <Text color="text">
+        Example repository of <Code>Next.js</Code> + <Code>chakra-ui</Code> + <Code>TypeScript</Code>.
+      </Text> */}
 
-      <List spacing={3} my={0} color="text">
+      {/* <List spacing={3} my={0} color="text">
         <ListItem>
           <ListIcon as={CheckCircleIcon} color="green.500" />
-          <ChakraLink
-            isExternal
-            href="https://chakra-ui.com"
-            flexGrow={1}
-            mr={2}
-          >
+          <ChakraLink isExternal href="https://chakra-ui.com" flexGrow={1} mr={2}>
             Chakra UI <LinkIcon />
           </ChakraLink>
         </ListItem>
@@ -42,15 +29,18 @@ const Index = () => (
             Next.js <LinkIcon />
           </ChakraLink>
         </ListItem>
-      </List>
+      </List> */}
     </Main>
 
     <DarkModeSwitch />
     <Footer>
-      <Text>Next ❤️ Chakra</Text>
+      <Stack textAlign={"center"} spacing={1}>
+        <Text>Restricted Access!</Text>
+        <Link href="/generate">------------</Link>
+      </Stack>
     </Footer>
-    <CTA />
+    {/* <CTA /> */}
   </Container>
-)
+);
 
-export default Index
+export default Index;
