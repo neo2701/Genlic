@@ -10,7 +10,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (!verify) return res.status(200).json({ error: "Invalid Code" });
   var uuid = uuidv4();
   var currentdate = new Date();
-  var expiry = new Date(currentdate.setHours(currentdate.getMinutes() + 10));
+  var expiry = new Date(currentdate.setMinutes(currentdate.getMinutes() + 10));
   await storeSession(uuid, expiry);
   req.statusCode = 200;
   return res.status(200).json({ sessionid: uuid, expiry });

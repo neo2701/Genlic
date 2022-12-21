@@ -103,6 +103,7 @@ export default function Generate(): JSX.Element {
 
   async function socketInitializer() {
     socket = io("https://VmixTrial.neo2701.repl.co");
+    // socket = io("http://localhost:5000");
     updateStatusText("Connecting to server");
     setProgressBar(true);
     socket.on("connect", () => {

@@ -64,12 +64,28 @@ export const checkSession = async sessionid => {
         sessionid: sessionid,
       })
       .toArray();
+    var check = await removeExpiredSessions();
+    console.log(check);
     if (documents.length === 0) return false;
     if (documents[0].expiry < Date.now()) {
       await collection.deleteOne({ sessionid: sessionid });
       return false;
     }
     return true;
+  } catch (e) {
+    throw new Error(e);
+  }
+};
+
+export const removeExpiredSessions = async () => {
+  const client = await clientPromise;
+  const db = client.db("Playground");
+  const collection = db.collection("sessions");
+  var currentdate = new Date();
+  // console.log(currentdate);
+  console.log(await collection.find({ expiry: { $lte: currentdate } }).toArray());
+  try {
+    return await collection.deleteMany({ expiry: { $lte: currentdate } });
   } catch (e) {
     throw new Error(e);
   }
