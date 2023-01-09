@@ -1,6 +1,14 @@
 import { DarkModeSwitch } from "@/components/DarkModeSwitch";
 import { checkSession, getAuthenticatorKey } from "@/helpers/db";
-import { Button, Card, CardBody, Flex, Stack, Text, useColorModeValue } from "@chakra-ui/react";
+import {
+  Button,
+  Card,
+  CardBody,
+  Flex,
+  Stack,
+  Text,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import authenticator from "authenticator";
 import { useQRCode } from "next-qrcode";
 import Router from "next/router";
@@ -18,7 +26,14 @@ export async function getServerSideProps(context) {
     };
   } else {
     var key = await getAuthenticatorKey();
-    var uri = authenticator.generateTotpUri(key, " Key", "Vmix Gen ", "SHA1", 6, 30);
+    var uri = authenticator.generateTotpUri(
+      key,
+      " Key",
+      "Vmix Gen ",
+      "SHA1",
+      6,
+      30
+    );
 
     return {
       props: {
@@ -31,11 +46,21 @@ export async function getServerSideProps(context) {
 export default function GetQR(props) {
   const { Canvas } = useQRCode();
   return (
-    <Flex minH={"100vh"} align={"center"} justify={"center"} bg={useColorModeValue("gray.50", "gray.800")}>
+    <Flex minH={"100vh"} align={"center"} justify={"center"}>
       <DarkModeSwitch />
       <Card>
         <CardBody alignItems={"center"}>
-          <Stack spacing={3} w={"full"} maxW={"sm"} bg={useColorModeValue("white", "gray.700")} rounded={"xl"} boxShadow={"lg"} p={6} textAlign={"center"} alignItems={"center"}>
+          <Stack
+            spacing={3}
+            w={"full"}
+            maxW={"sm"}
+            bg={useColorModeValue("white", "gray.700")}
+            rounded={"xl"}
+            boxShadow={"lg"}
+            p={6}
+            textAlign={"center"}
+            alignItems={"center"}
+          >
             <Canvas text={props.uri} />
             <Text>Scan this code On Authenticator App</Text>
             <Button

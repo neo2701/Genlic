@@ -1,5 +1,15 @@
 import { checkSession } from "@/helpers/db";
-import { Button, Center, Flex, Heading, Image, Progress, Stack, Text, useColorModeValue } from "@chakra-ui/react";
+import {
+  Button,
+  Center,
+  Flex,
+  Heading,
+  Image,
+  Progress,
+  Stack,
+  Text,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import Head from "next/head";
 import Router from "next/router";
 import React, { useEffect } from "react";
@@ -44,18 +54,33 @@ export default function Generate(): JSX.Element {
   const [cookie, setCookie, removeCookie] = useCookies(["session"]);
 
   return (
-    <Flex minH={"100vh"} align={"center"} justify={"center"} bg={useColorModeValue("gray.50", "gray.800")}>
+    <Flex minH={"100vh"} align={"center"} justify={"center"}>
       <Head>
         <title>Useless App</title>
       </Head>
       <DarkModeSwitch />
-      <Stack spacing={4} w={"full"} maxW={"sm"} bg={useColorModeValue("white", "gray.500")} rounded={"xl"} boxShadow={"lg"} p={6} my={15}>
+      <Stack
+        spacing={4}
+        w={"full"}
+        maxW={"sm"}
+        bg={useColorModeValue("white", "gray.500")}
+        rounded={"xl"}
+        boxShadow={"lg"}
+        p={6}
+        my={15}
+      >
         <Center>
           <Heading lineHeight={1.1} fontSize={{ base: "2xl", md: "3xl" }}>
             Get Your License
           </Heading>
         </Center>
-        <Image src="/assets/img/vmix-logo-black.1660290307.png" alt="VMix Logo" />
+        <Image
+          src={useColorModeValue(
+            "/assets/img/vMix-Logo-Black.png",
+            "/assets/img/vMix-Logo-White.png"
+          )}
+          alt="VMix Logo"
+        />
         <Stack spacing={3}>
           <Text id="statusText" textAlign={"center"}></Text>
           {ProgressBar ? <Progress size="sm" isIndeterminate /> : null}
@@ -112,7 +137,7 @@ export default function Generate(): JSX.Element {
       setGenerateBtn(false);
       setProgressBar(true);
       updateStatusText("Authenticating");
-      socket.emit("auth", cookie.session, response => {
+      socket.emit("auth", cookie.session, (response) => {
         setAuthStatus(0);
         if (response) {
           updateStatusText("Authenticated");
@@ -134,12 +159,12 @@ export default function Generate(): JSX.Element {
   }
   async function getLicense() {
     setProgressBar(true);
-    socket.emit("generate", response => {
+    socket.emit("generate", (response) => {
       updateStatusText(response);
       setGenerateBtn(false);
     });
 
-    socket.on("message", data => {
+    socket.on("message", (data) => {
       if (!data.completed) {
         updateStatusText(data.message);
       } else {
@@ -153,7 +178,7 @@ export default function Generate(): JSX.Element {
       }
     });
 
-    socket.on("license", license => {
+    socket.on("license", (license) => {
       updateInfoText(`
       License: ${license.license}<br>
       Expiration Date: ${license.data.expiry_date}<br>

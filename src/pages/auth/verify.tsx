@@ -1,4 +1,17 @@
-import { Button, Center, Flex, FormControl, Heading, HStack, PinInput, PinInputField, Spinner, Stack, useColorModeValue, useToast } from "@chakra-ui/react";
+import {
+  Button,
+  Center,
+  Flex,
+  FormControl,
+  Heading,
+  HStack,
+  PinInput,
+  PinInputField,
+  Spinner,
+  Stack,
+  useColorModeValue,
+  useToast,
+} from "@chakra-ui/react";
 import Head from "next/head";
 import Router from "next/router";
 import React from "react";
@@ -28,16 +41,30 @@ export default function TwoFactor(props): JSX.Element {
   const [cookie, setCookie] = useCookies(["session"]);
 
   var redirect = props.redirect;
-  if (cookie.session !== undefined) Router.push(redirect, undefined, { shallow: true });
+  if (cookie.session !== undefined)
+    Router.push(redirect, undefined, { shallow: true });
 
   return (
-    <Flex minH={"100vh"} align={"center"} justify={"center"} bg={useColorModeValue("gray.50", "gray.800")}>
+    <Flex minH={"100vh"} align={"center"} justify={"center"}>
       <Head>
         <title>Useless App</title>
       </Head>
-      <Stack spacing={4} w={"full"} maxW={"sm"} bg={useColorModeValue("white", "gray.700")} rounded={"xl"} boxShadow={"lg"} p={6} my={10}>
+      <Stack
+        spacing={4}
+        w={"full"}
+        maxW={"sm"}
+        bg={useColorModeValue("white", "gray.700")}
+        rounded={"xl"}
+        boxShadow={"lg"}
+        p={6}
+        my={10}
+      >
         <Center>
-          <Heading lineHeight={1.1} fontSize={{ base: "2xl", md: "3xl" }} textAlign={"center"}>
+          <Heading
+            lineHeight={1.1}
+            fontSize={{ base: "2xl", md: "3xl" }}
+            textAlign={"center"}
+          >
             Verify Your 2FA Code
           </Heading>
         </Center>
@@ -88,8 +115,8 @@ export default function TwoFactor(props): JSX.Element {
     fetch("/api/auth?code=" + code, {
       method: "POST",
     })
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         setIsSubmitting(false);
         if (data.error) {
           toast({
