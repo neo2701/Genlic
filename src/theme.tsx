@@ -13,6 +13,7 @@ const theme = extendTheme({
   config: {
     initialColorMode: "dark",
     useSystemColorMode: false,
+    disableTransitionOnChange: false,
   },
 
   // useSystemColorMode: true,
