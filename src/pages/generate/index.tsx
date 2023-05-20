@@ -9,6 +9,7 @@ import {
   Stack,
   Text,
   useColorModeValue,
+  useToast,
 } from "@chakra-ui/react";
 import Head from "next/head";
 import Router from "next/router";
@@ -127,10 +128,14 @@ export default function Generate(): JSX.Element {
   }
 
   async function socketInitializer() {
-    socket = io("https://VmixTrial.neo2701.repl.co");
+    
+    // socket = io("https://VmixTrial.neo2701.repl.co");
+    socket = io("https://neo2701-curly-goldfish-x5rv6v5xv6j36q79-5000.preview.app.github.dev/");
+    // socket = io("https://genlic-backend-production.up.railway.app/");
     // socket = io("http://localhost:5000");
     updateStatusText("Connecting to server");
     setProgressBar(true);
+
     socket.on("connect", () => {
       console.log("Connected to server");
       updateStatusText("Connected to server");
@@ -152,6 +157,12 @@ export default function Generate(): JSX.Element {
         }
       });
     });
+    socket.on('connect_error', () => {
+     
+      // setTimeout(() => {
+      //   Router.reload();
+      // }, 5000);
+    })
     socket.on("disconnect", () => {
       setAuthStatus(0);
       updateStatusText("Disconnected from server");
