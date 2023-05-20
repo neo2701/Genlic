@@ -130,8 +130,8 @@ export default function Generate(): JSX.Element {
   async function socketInitializer() {
     
     // socket = io("https://VmixTrial.neo2701.repl.co");
-    socket = io("https://neo2701-curly-goldfish-x5rv6v5xv6j36q79-5000.preview.app.github.dev/");
-    // socket = io("https://genlic-backend-production.up.railway.app/");
+    // socket = io("https://neo2701-curly-goldfish-x5rv6v5xv6j36q79-5000.preview.app.github.dev/");
+    socket = io("https://genlic-backend-production.up.railway.app/");
     // socket = io("http://localhost:5000");
     updateStatusText("Connecting to server");
     setProgressBar(true);
